@@ -30,66 +30,48 @@
         {
             this.downloadProgress = new System.Windows.Forms.ProgressBar();
             this.information = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.noteBold = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.animateMe = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.animateMe)).BeginInit();
             this.SuspendLayout();
             // 
             // downloadProgress
             // 
-            this.downloadProgress.Location = new System.Drawing.Point(12, 26);
+            this.downloadProgress.Location = new System.Drawing.Point(12, 233);
             this.downloadProgress.Name = "downloadProgress";
-            this.downloadProgress.Size = new System.Drawing.Size(210, 23);
+            this.downloadProgress.Size = new System.Drawing.Size(331, 10);
             this.downloadProgress.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.downloadProgress.TabIndex = 0;
             // 
             // information
             // 
             this.information.AutoSize = true;
-            this.information.Location = new System.Drawing.Point(9, 9);
+            this.information.BackColor = System.Drawing.Color.Transparent;
+            this.information.ForeColor = System.Drawing.Color.Snow;
+            this.information.Location = new System.Drawing.Point(9, 214);
             this.information.Name = "information";
             this.information.Size = new System.Drawing.Size(131, 13);
             this.information.TabIndex = 1;
             this.information.Text = "Checking for latest update";
             // 
-            // button1
+            // animateMe
             // 
-            this.button1.Location = new System.Drawing.Point(228, 26);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Cancel";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // noteBold
-            // 
-            this.noteBold.AutoSize = true;
-            this.noteBold.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.noteBold.Location = new System.Drawing.Point(9, 51);
-            this.noteBold.Name = "noteBold";
-            this.noteBold.Size = new System.Drawing.Size(49, 13);
-            this.noteBold.TabIndex = 3;
-            this.noteBold.Text = "NOTE: ";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(52, 51);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(218, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "This is a launcher update, not server update.";
+            this.animateMe.BackColor = System.Drawing.Color.Transparent;
+            this.animateMe.Image = global::GameLauncherUpdate.Properties.Resources.icon_100;
+            this.animateMe.Location = new System.Drawing.Point(12, 12);
+            this.animateMe.Name = "animateMe";
+            this.animateMe.Size = new System.Drawing.Size(331, 187);
+            this.animateMe.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.animateMe.TabIndex = 2;
+            this.animateMe.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ClientSize = new System.Drawing.Size(315, 73);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.noteBold);
-            this.Controls.Add(this.button1);
+            this.BackColor = System.Drawing.Color.Black;
+            this.BackgroundImage = global::GameLauncherUpdate.Properties.Resources.luncher;
+            this.ClientSize = new System.Drawing.Size(355, 255);
+            this.Controls.Add(this.animateMe);
             this.Controls.Add(this.information);
             this.Controls.Add(this.downloadProgress);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -99,6 +81,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.animateMe)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,9 +91,7 @@
 
         private System.Windows.Forms.ProgressBar downloadProgress;
         private System.Windows.Forms.Label information;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label noteBold;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox animateMe;
     }
 }
 

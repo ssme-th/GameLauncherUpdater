@@ -16,17 +16,16 @@ using System.Threading;
 namespace GameLauncherUpdate {
     public partial class Form1 : Form {
         string tempNameZip = Path.GetTempFileName();
+        int op = 100;
 
         public Form1() {
             InitializeComponent();
         }
 
         public void error(string error) {
-            button1.Enabled = false;
             information.Text = error.ToString();
             Delay.WaitSeconds(2);
-            this.Close();
-            Application.Exit();
+            Process.GetProcessById(Process.GetCurrentProcess().Id).Kill();
         }
 
         public void success(string success) {
@@ -34,13 +33,18 @@ namespace GameLauncherUpdate {
         }
 
         public void update() {
+            string[] args = Environment.GetCommandLineArgs();
+
+            if (args.Length == 2) {
+                Process.GetProcessById(Convert.ToInt16(args[1])).Kill();
+            }
+
+
             Delay.WaitSeconds(1);
 
             if (File.Exists("GameLauncher.exe")) {
                 var versionInfo = FileVersionInfo.GetVersionInfo("GameLauncher.exe");
                 string version = versionInfo.ProductVersion;
-                version = "1.9.0.0";
-
                 success("Found version " + version + ". Checking for update...");
 
                 var client = new WebClient();
@@ -60,8 +64,8 @@ namespace GameLauncherUpdate {
                             });
                             thread.Start();
                         } else {
-                            error("Starting GameLauncher.exe");
                             Process.Start(@"GameLauncher.exe");
+                            error("Starting GameLauncher.exe");
                         }
                     } catch(Exception ex) {
                         error("Failed to update. " + ex.Message);    
@@ -133,19 +137,68 @@ namespace GameLauncherUpdate {
                     }
                 }
 
-                error("Update completed. Starting GameLauncher.exe");
                 Process.Start(@"GameLauncher.exe");
+                error("Update completed. Starting GameLauncher.exe");
             });
-        }
-
-        private void button1_Click(object sender, EventArgs e) {
-            error("Rolling back update...");
         }
 
         private void Form1_Load(object sender, EventArgs e) {
             this.BeginInvoke((MethodInvoker)delegate {
+                Thread x = new Thread(animateMeFunc);
+                x.Start();
+
+                //animateMeFunc();
                 update();
             });
+        }
+
+        public void animateMeFunc() {
+            while (op < 110) {
+
+                while (op > 40) {
+                    op = op - 10;
+                    Application.DoEvents();
+                    System.Threading.Thread.Sleep(100);
+
+                    if(op == 100) {
+                        animateMe.Image = Properties.Resources.icon_100;
+                    } else if (op == 90) {
+                        animateMe.Image = Properties.Resources.icon_90;
+                    } else if (op == 80) {
+                        animateMe.Image = Properties.Resources.icon_80;
+                    } else if (op == 70) {
+                        animateMe.Image = Properties.Resources.icon_70;
+                    } else if (op == 60) {
+                        animateMe.Image = Properties.Resources.icon_60;
+                    } else if (op == 50) {
+                        animateMe.Image = Properties.Resources.icon_50;
+                    } else {
+                        animateMe.Image = Properties.Resources.icon_40;
+                    }
+                }
+
+                while (op < 100) {
+                    op = op + 10;
+                    Application.DoEvents();
+                    System.Threading.Thread.Sleep(100);
+
+                    if (op == 100) {
+                        animateMe.Image = Properties.Resources.icon_100;
+                    } else if (op == 90) {
+                        animateMe.Image = Properties.Resources.icon_90;
+                    } else if (op == 80) {
+                        animateMe.Image = Properties.Resources.icon_80;
+                    } else if (op == 70) {
+                        animateMe.Image = Properties.Resources.icon_70;
+                    } else if (op == 60) {
+                        animateMe.Image = Properties.Resources.icon_60;
+                    } else if (op == 50)  {
+                        animateMe.Image = Properties.Resources.icon_50;
+                    } else {
+                        animateMe.Image = Properties.Resources.icon_40;
+                    }
+                };
+            }
         }
     }
 }
