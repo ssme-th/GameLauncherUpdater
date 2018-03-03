@@ -17,6 +17,7 @@ namespace GameLauncherUpdate {
     public partial class Form1 : Form {
         string tempNameZip = Path.GetTempFileName();
         int op = 100;
+        string version;
 
         public Form1() {
             InitializeComponent();
@@ -36,44 +37,46 @@ namespace GameLauncherUpdate {
             string[] args = Environment.GetCommandLineArgs();
 
             if (args.Length == 2) {
-                Process.GetProcessById(Convert.ToInt16(args[1])).Kill();
+                Process.GetProcessById(Convert.ToInt32(args[1])).Kill();
             }
-
 
             Delay.WaitSeconds(1);
 
             if (File.Exists("GameLauncher.exe")) {
                 var versionInfo = FileVersionInfo.GetVersionInfo("GameLauncher.exe");
-                string version = versionInfo.ProductVersion;
+                version = versionInfo.ProductVersion;
                 success("Found version " + version + ". Checking for update...");
-
-                var client = new WebClient();
-                Uri StringToUri = new Uri("http://nfsw.metonator.ct8.pl/checkUpdate.php?version=" + version);
-                client.CancelAsync();
-                client.DownloadStringAsync(StringToUri);
-                client.DownloadStringCompleted += (sender2, e2) => {
-                    try {
-                        CheckVersion json = JsonConvert.DeserializeObject<CheckVersion>(e2.Result);
-
-                        if(json.update.info != false) {
-                            Thread thread = new Thread(() => {
-                                WebClient client2 = new WebClient();
-                                client2.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
-                                client2.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
-                                client2.DownloadFileAsync(new Uri(json.update.download), tempNameZip);
-                            });
-                            thread.Start();
-                        } else {
-                            Process.Start(@"GameLauncher.exe");
-                            error("Starting GameLauncher.exe");
-                        }
-                    } catch(Exception ex) {
-                        error("Failed to update. " + ex.Message);    
-                    }
-                };
             } else {
-                error("Failed to find GameLauncher.exe");
+                version = "0.0.0.0";
+                success("Failed to find GameLauncher.exe. Redownloading launcher.");
             }
+
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+            var client = new WebClient();
+            Uri StringToUri = new Uri("http://nfsw.metonator.ct8.pl/checkUpdate.php?version=" + version);
+            client.CancelAsync();
+            client.DownloadStringAsync(StringToUri);
+            client.DownloadStringCompleted += (sender2, e2) => {
+                try {
+                    CheckVersion json = JsonConvert.DeserializeObject<CheckVersion>(e2.Result);
+
+                    if(json.update.info != false) {
+                        Thread thread = new Thread(() => {
+                            WebClient client2 = new WebClient();
+                            client2.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                            client2.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                            client2.DownloadFileAsync(new Uri(json.update.download), tempNameZip);
+                        });
+                        thread.Start();
+                    } else {
+                        Process.Start(@"GameLauncher.exe");
+                        error("Starting GameLauncher.exe");
+                    }
+                } catch(Exception ex) {
+                    error("Failed to update. " + ex.Message);    
+                }
+            };
         }
 
         private string FormatFileSize(long byteCount) {
