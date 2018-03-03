@@ -54,7 +54,7 @@ namespace GameLauncherUpdate {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             var client = new WebClient();
-            Uri StringToUri = new Uri("http://nfsw.metonator.ct8.pl/checkUpdate.php?version=" + version);
+            Uri StringToUri = new Uri("http://launcher.soapboxrace.world/checkUpdate.php?version=" + version);
             client.CancelAsync();
             client.DownloadStringAsync(StringToUri);
             client.DownloadStringCompleted += (sender2, e2) => {
