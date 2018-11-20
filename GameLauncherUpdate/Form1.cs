@@ -1,19 +1,15 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Windows.Forms;
 using System.IO.Compression;
+using System.Net;
 using System.Threading;
+using System.Windows.Forms;
 
-namespace GameLauncherUpdate {
+namespace GameLauncherUpdater
+{
     public partial class Form1 : Form {
         string tempNameZip = Path.GetTempFileName();
         int op = 100;
@@ -54,7 +50,7 @@ namespace GameLauncherUpdate {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             var client = new WebClient();
-            Uri StringToUri = new Uri("http://launcher.soapboxrace.world/checkUpdate.php?version=" + version);
+            Uri StringToUri = new Uri("https://launcher.superspeed.me/check-update/" + version);
             client.CancelAsync();
             client.DownloadStringAsync(StringToUri);
             client.DownloadStringCompleted += (sender2, e2) => {
@@ -124,7 +120,7 @@ namespace GameLauncherUpdate {
 
                             Directory.CreateDirectory(folderName);
                         } else {
-                            if (fullName != "Newtonsoft.Json.dll" && fullName != "GameLauncherUpdate.exe" && fullName != "GameLauncherUpdate.pdb") {
+                            if (fullName != "Newtonsoft.Json.dll" && fullName != "GameLauncherUpdater.exe" && fullName != "GameLauncherUpdater.pdb") {
                                 if (File.Exists(fullName)) {
                                     File.Delete(fullName);
                                 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace GameLauncherUpdate {
+namespace GameLauncherUpdater {
     public class Update {
         public bool info { get; set; }
         public string download { get; set; }

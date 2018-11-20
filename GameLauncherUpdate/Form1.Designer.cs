@@ -1,4 +1,4 @@
-﻿namespace GameLauncherUpdate
+﻿namespace GameLauncherUpdater
 {
     partial class Form1
     {
@@ -56,7 +56,7 @@
             // animateMe
             // 
             this.animateMe.BackColor = System.Drawing.Color.Transparent;
-            this.animateMe.Image = global::GameLauncherUpdate.Properties.Resources.icon_100;
+            this.animateMe.Image = global::GameLauncherUpdater.Properties.Resources.icon_100;
             this.animateMe.Location = new System.Drawing.Point(12, 12);
             this.animateMe.Name = "animateMe";
             this.animateMe.Size = new System.Drawing.Size(331, 187);
@@ -69,7 +69,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.BackgroundImage = global::GameLauncherUpdate.Properties.Resources.luncher;
+            this.BackgroundImage = global::GameLauncherUpdater.Properties.Resources.luncher;
             this.ClientSize = new System.Drawing.Size(355, 255);
             this.Controls.Add(this.animateMe);
             this.Controls.Add(this.information);
